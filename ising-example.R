@@ -13,7 +13,7 @@
 betas <- 2^seq(from = -8, to = 5, len = 100)
 betas <- c(betas, rev(betas))
 
-args = commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 
 stopifnot(length(args) == 2 || length(args) == 4)
 
