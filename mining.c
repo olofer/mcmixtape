@@ -9,6 +9,7 @@
 
   USAGE:
     mining [what-to-do] [parameters ...]
+    (./mining.exe ...)
 
     what-to-do          parameters                           comment  
 
@@ -302,7 +303,7 @@ int main(int argc, char** argv)
       }
 
       if (localBlock.index != currentBlock.index) {
-        #pragma omp critical
+        #pragma omp critical(shared_problem)
         {
           memcpy(&localBlock, &currentBlock, sizeof(tBlock));
         }
@@ -315,7 +316,7 @@ int main(int argc, char** argv)
         const uint32_t ntz = hash_ctz(localHash, 8);
 
         if (ntz >= requiredTrailingZeros) {
-          #pragma omp critical
+          #pragma omp critical(shared_problem)
           {
             if (localBlock.index == currentBlock.index) {
               memcpy(currentBlock.hash, localHash, sizeof(uint32_t) * 8); // chain block
